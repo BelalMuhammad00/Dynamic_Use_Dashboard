@@ -1,0 +1,22 @@
+
+  <section class="section">
+    <app-loading *ngIf="!userDetails"></app-loading>
+
+    <div class="container mt-5" *ngIf="userDetails">
+      <div class="card text-center animate__animated animate__fadeIn">
+        <div class="card-header">
+          <h2>Employee Details</h2>
+        </div>
+        <div class="card-body">
+          <img [src]="userDetails.avatar" alt="{{userDetails.first_name}} {{userDetails.last_name}}" class="rounded-circle mb-3" style="width: 100px; height: 100px;">
+          <p><strong>ID:</strong> {{userDetails.id}}</p>
+          <p><strong>Email:</strong> {{userDetails.email}}</p>
+          <p><strong>Name:</strong> {{userDetails.first_name}} {{userDetails.last_name}}</p>
+        </div>
+        <a routerLink="/UserList" class="btn btn-primary"> back to Users List</a>
+      </div>
+    </div>
+  </section>
+
+
+

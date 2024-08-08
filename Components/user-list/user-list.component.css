@@ -1,0 +1,13 @@
+.page-link {
+  background-color: rgb(10, 25, 66);
+  color: white;
+  cursor: pointer;
+  &:hover{
+    background-color: white;
+    color:  rgb(10, 25, 66);;
+  }
+}
+.card{
+  background-color: #3f454b;
+  color: white;
+}

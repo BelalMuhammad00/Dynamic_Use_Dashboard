@@ -1,0 +1,9 @@
+.card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #3f454b;
+    color: white;
+  }
+

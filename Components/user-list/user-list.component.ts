@@ -1,3 +1,4 @@
+import { jsDocComment } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/Services/user.service';
@@ -8,26 +9,35 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-
+ 
 total_pages: number=0;
 Pages:number[]=[];
 term:string="";  
 users:User[]=[]; 
+userDetails:User={} as User;
 
   constructor(private _user:UserService) { 
 
   }
 
   ngOnInit(): void {
-    this.getUsers(1);
-  
+    if(!sessionStorage.getItem("UsersData")){
+      this.getUsers(1);
+      
+    }else{
+      this.users = JSON.parse(sessionStorage.getItem("UsersData")!).data;
+      this.total_pages=JSON.parse(sessionStorage.getItem("UsersData")!).total_pages;
+this.Pages=this.createArray(this.total_pages);
+
+    }
+
   }
 
 
   
 getUsers(pageCount:number){
 this._user.getUsers(pageCount).subscribe((x)=>{
-
+  sessionStorage.setItem("UsersData",JSON.stringify(x));
 console.log(x, x.total_pages);
 this.users=x.data;
 this.total_pages=x.total_pages;
@@ -44,8 +54,16 @@ createArray(length:number) {
   return array;
 }
 
-getUserId(id:number){
-console.log("this is search data ="+id);
+getUserbyId(id:any){
+this._user.getUserDetails(id).subscribe((res)=>{
+  console.log(res);
+this.userDetails=res.data
+})
+}
 
+SearchVal(event:any){
+console.log("this the event ===",event.target.value);
+this.term=event.target.value;
+this.getUserbyId(this.term)
 }
 }

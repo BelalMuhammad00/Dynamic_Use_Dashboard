@@ -1,36 +1,66 @@
-
+<app-header (SearchValue)="SearchVal($event)"></app-header>
 
 <div class="container">
 
-<input [(ngModel)]="term" type="text" class="form-control my-5 bg-transparent " placeholder="Searh By Name...">
+<!-- <input [(ngModel)]="term" type="text" class="form-control my-5 bg-transparent " placeholder="Searh By Name..."> -->
 
-    <div class="row align-items-center" *ngIf="users.length">
-        <div class="col-md-4 col-sm-6 text-center align-items-center g-4 " *ngFor="let user of users|search:term">
+    <div class="row align-items-center">
+      <ng-container  *ngIf="!term">
+        <div  class="col-md-4 col-sm-6 text-center align-items-center g-4 " *ngFor="let user of users">
 
          
 
 
-                <div class="card text-center d-flex justify-content-center animate__animated animate__fadeIn" >
-                    <img height="200" [src]="user.avatar" class="card-img-top rounded-circle w-50 m-auto py-2  " [alt]="user.first_name">
-                    <div class="card-body">
-                        
-                      <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
-                      <h5 class="card-title"></h5>
-                      <a [routerLink]="['/UserDetails',user.id]" class="btn btn-primary">Details</a>
-                    </div>
-                  </div>
+          <div class="card text-center d-flex justify-content-center animate__animated animate__fadeIn" >
+              <img height="200" [src]="user.avatar" class="card-img-top rounded-circle w-50 m-auto py-2  " [alt]="user.first_name">
+              <div class="card-body">
+                  
+                <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
+                <h5 class="card-title"></h5>
+                <a [routerLink]="['/UserDetails',user.id]" class="btn btn-primary">Details</a>
+              </div>
+            </div>
 
+  </div>
+      </ng-container>
+
+
+      
+
+
+        <div  *ngIf="term">
+          <div  class="col-md-4 col-sm-6 text-center align-items-center py-4 " >
+
+         
+
+
+            <div class="card text-center d-flex justify-content-center animate__animated animate__fadeIn" >
+                <img height="200" [src]="userDetails.avatar" class="card-img-top rounded-circle w-50 m-auto py-2  " [alt]="userDetails.first_name">
+                <div class="card-body">
+                    
+                  <h5 class="card-title">{{userDetails.first_name}} {{userDetails.last_name}}</h5>
+                  <h5 class="card-title"></h5>
+                  <a [routerLink]="['/UserDetails',userDetails.id]" class="btn btn-primary">Details</a>
+                </div>
+              </div>
+  
+    </div>
         </div>
-        <nav aria-label="Page navigation example" class="py-4 d-flex justify-content-center">
-          <ul class="pagination"  >
-           
-            <li class="page-item" *ngFor="let page of Pages" (click)="getUsers(page)">
-              <a class="page-link ">{{page}}</a>
-            </li>
+ 
+
+<ng-container *ngIf="!term">
+  <nav  aria-label="Page navigation example" class="py-4 d-flex justify-content-center">
+    <ul class="pagination"  >
      
-           
-          </ul>
-        </nav>
+      <li class="page-item" *ngFor="let page of Pages" (click)="getUsers(page)">
+        <a class="page-link ">{{page}}</a>
+      </li>
+
+     
+    </ul>
+  </nav>
+</ng-container>
+    
     </div>
 
     
